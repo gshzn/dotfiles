@@ -8,4 +8,7 @@ if status is-interactive
     fish_add_path $PYENV_ROOT/bin
 
     pyenv init - | source
+
+    set --global tide_right_prompt_items status cmd_duration python
+    set --global tide_left_prompt_items pwd character
 end
