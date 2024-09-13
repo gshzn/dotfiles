@@ -1,6 +1,15 @@
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<C-p>', builtin.find_files, {})
-vim.keymap.set('n', '<C-t>', builtin.git_files, {})
+vim.keymap.set('n', '<C-t>', function()
+    local is_git_dir = os.execute('git rev-parse --is-inside-worktree')
+
+    print(is_git_dir)
+
+    if (is_git_dir == 0) then
+        builtin.git_files()
+    else
+        builtin.find_files()
+    end
+end, {})
 vim.keymap.set('n', '<C-b>', builtin.buffers, {})
 
 vim.keymap.set('n', '<leader>pws', function()
