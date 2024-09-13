@@ -21,6 +21,8 @@ require('lualine').setup {
                 end
             },
         },
-        lualine_x = {'branch'}
+        lualine_x = {'branch'},
+        lualine_y = {},
+        lualine_z = {},
     },
 }
