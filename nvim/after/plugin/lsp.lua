@@ -17,6 +17,8 @@ local lsp_attach = function(client, bufnr)
     vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
     vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 
+    vim.keymap.set('n', 'gf', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+
     if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
     end
@@ -31,6 +33,28 @@ require'lspconfig'.phpactor.setup{
     },
 }
 
+require'lspconfig'.pyright.setup{
+    on_attach = lsp_attach,
+    settings = {
+        python = {
+            pythonPath = vim.env.VIRTUAL_ENV and vim.env.VIRTUAL_ENV .. "/bin/python" or "/usr/local/bin/python3",
+        }
+    }
+}
+
+-- require'lspconfig'.pylsp.setup {
+--     on_attach = lsp_attach,
+--     settings = {
+--         pylsp = {
+--             plugins = {
+--                 rope_autoimport = {
+--                     enabled = true
+--                 }
+--             }
+--         }
+--     }
+-- }
+
 require'lspconfig'.lua_ls.setup{
     on_attach = lsp_attach,
     settings = {
@@ -44,6 +68,18 @@ require'lspconfig'.lua_ls.setup{
 
 local cmp = require("cmp")
 
+local select_first_item_mapping = cmp.mapping(function(fallback)
+    if cmp.visible() then
+        local entry = cmp.get_selected_entry()
+        if not entry then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        end
+        cmp.confirm()
+    else
+        fallback()
+    end
+end, {"i","s","c",})
+
 cmp.setup({
     sources = {
         {name = 'nvim_lsp'},
@@ -56,18 +92,8 @@ cmp.setup({
     },
 
     mapping = cmp.mapping.preset.insert({
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
-            if cmp.visible() then
-                local entry = cmp.get_selected_entry()
-                if not entry then
-                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                end
-                cmp.confirm()
-            else
-                fallback()
-            end
-        end, {"i","s","c",}),
+        ["<Enter>"] = select_first_item_mapping,
+        ["<Tab>"] = select_first_item_mapping,
     })
 })
 

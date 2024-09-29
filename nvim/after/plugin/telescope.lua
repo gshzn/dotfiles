@@ -11,6 +11,7 @@ vim.keymap.set('n', '<C-t>', function()
     end
 end, {})
 vim.keymap.set('n', '<C-b>', builtin.buffers, {})
+vim.keymap.set('n', '<C-f>', builtin.live_grep, {})
 
 vim.keymap.set('n', '<leader>pws', function()
 	local word = vim.fn.expand("<cword>")
