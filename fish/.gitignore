@@ -1,0 +1,9 @@
+*tide*
+**/tide/*
+
+fish_variables
+completions/
+conf.d/
+
+functions/
+themes/
