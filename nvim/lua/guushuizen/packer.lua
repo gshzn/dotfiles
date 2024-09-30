@@ -57,4 +57,6 @@ return require('packer').startup(function(use)
     use 'mfussenegger/nvim-dap-python'
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
     use 'theHamsta/nvim-dap-virtual-text'
+
+    use 'lewis6991/gitsigns.nvim'
 end)
