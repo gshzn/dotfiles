@@ -52,4 +52,9 @@ return require('packer').startup(function(use)
     }
 
     use 'm4xshen/autoclose.nvim'
+
+    use 'mfussenegger/nvim-dap'
+    use 'mfussenegger/nvim-dap-python'
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
+    use 'theHamsta/nvim-dap-virtual-text'
 end)
