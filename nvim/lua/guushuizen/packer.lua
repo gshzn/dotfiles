@@ -59,4 +59,6 @@ return require('packer').startup(function(use)
     use 'theHamsta/nvim-dap-virtual-text'
 
     use 'lewis6991/gitsigns.nvim'
+
+    use 'smolck/command-completion.nvim'
 end)
